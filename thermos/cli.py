@@ -22,13 +22,16 @@ from . import __version__ as VERSION
 
 
 def main():
-    """Main CLI entrypoint."""
-    import skele.commands
+    """The main CLI entry-point."""
+
+    import thermos.commands
+
     options = docopt(__doc__, version=VERSION)
 
     for (k, v) in options.items():
-        if hasattr(skele.commands, k) and v:
-            module = getattr(skele.commands, k)
-            skele.commands = getmembers(module, isclass)
-            command = [command[1] for command in skele.commands if command[0] != 'Base'][0]
+        if hasattr(thermos.commands, k) and v:
+            module = getattr(thermos.commands, k)
+            thermos.commands = getmembers(module, isclass)
+            command = [command[1] for command in thermos.commands if command[0] != 'Base'][0]
             command = command(options)
+            command.run()
