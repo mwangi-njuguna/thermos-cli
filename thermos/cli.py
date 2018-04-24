@@ -1,9 +1,11 @@
 """
 thermos
+
 Usage:
   thermos create
   thermos -h | --help
   thermos -v | --version
+  
 Options:
   -h --help                         Show this screen for available options.
   --version                         Show the version.

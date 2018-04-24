@@ -54,8 +54,9 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.6',
     ],
-    keywords = ['cli','flask'],
+    keywords = 'cli',
     packages = find_packages(exclude=['docs', 'tests*']),
+    package_dir = {'': '/usr'},
     install_requires = ['docopt'],
     extras_require = {
         'test': ['coverage', 'pytest', 'pytest-cov'],
