@@ -50,7 +50,7 @@ def main():
                     path = os.makedirs(app_name)
                 else:
                     BASE_DIR = os.path.join( os.path.dirname(os.path.dirname( __file__ )))
-                    print(BASE_DIR)
+                    # print(BASE_DIR)
                     # if os.chdir(BASE_DIR+"/"+app_name):
                     # subprocess.Popen("git init")
 
@@ -91,6 +91,14 @@ def main():
 
                     if not os.path.exists('app'):
                         os.makedirs('app')
+
+                    os.chdir('app')
+
+                    folders = ['static','templates','static/css']
+
+                    for folder in folders:
+                        if not os.path.exists(folder):
+                            os.makedirs(folder)
 
 
 
