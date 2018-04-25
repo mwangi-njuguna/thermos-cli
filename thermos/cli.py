@@ -2,7 +2,7 @@
 thermos
 
 Usage:
-  thermos create
+  thermos create tests <testname>
   thermos -h | --help
   thermos -v | --version
 
@@ -30,10 +30,25 @@ def main():
 
     options = docopt(__doc__, version=VERSION)
 
-    for (k, v) in options.items():
-        if hasattr(thermos.commands, k) and v:
-            module = getattr(thermos.commands, k)
-            thermos.commands = getmembers(module, isclass)
-            command = [command[1] for command in thermos.commands if command[0] != 'Base'][0]
-            command = command(options)
-            command.run()
+   # for (k, v) in options.items():
+        #if hasattr(thermos.commands, k) and v:
+            #module = getattr(thermos.commands, k)
+            #thermos.commands = getmembers(module, isclass)
+            #command = [command[1] for command in thermos.commands if command[0] != 'Base'][0]
+            #command = command(options)
+            #command.run()
+
+
+if options['create']:
+
+
+
+        if options['']:
+
+            blueprint_name = options['<testname>']
+
+            if not os.path.exists(test_name):
+
+                if os.makedirs(test_name):
+
+                   print(test_name
