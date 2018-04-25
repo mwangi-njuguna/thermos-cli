@@ -89,6 +89,10 @@ def main():
                         manage.close()
 
 
+                    if not os.path.exists('app'):
+                        os.makedirs('app')
+
+
 
 
 
