@@ -5,7 +5,8 @@ from codecs import open
 from os.path import abspath, dirname, join
 from subprocess import call
 
-from setuptools import Command, find_packages, setup
+from setuptools import Command, find_packages
+from distutils.core import setup
 
 from thermos import __version__
 
@@ -55,8 +56,8 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     keywords = 'cli',
-    packages = find_packages(exclude=['docs', 'tests*']),
-    package_dir = {'': '/usr'},
+    packages=['thermos'],
+    #package_dir = {'': '/lib'},
     install_requires = ['docopt'],
     extras_require = {
         'test': ['coverage', 'pytest', 'pytest-cov'],

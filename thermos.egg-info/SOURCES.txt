@@ -6,4 +6,4 @@ thermos/__main__.py
 thermos/cli.py
 thermos/commands/__init__.py
 thermos/commands/base.py
-thermos/commands/create_app.py
+thermos/commands/create.py

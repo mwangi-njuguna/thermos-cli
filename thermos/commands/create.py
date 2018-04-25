@@ -7,7 +7,8 @@ from .base import Base
 
 
 class Create(Base):
-    """Make base folder application structure"""
+    """Make base application folder structure"""
 
     def run(self):
+        print("hello there")
         print('You supplied the following options:', dumps(self.options, indent=2, sort_keys=True))
