@@ -63,7 +63,33 @@ def main():
                         gitignore.write('virtual/ \n *.pyc \n start.sh')
                         gitignore.close()
 
-                    os.makedirs('tests')
+                    if not os.path.exists('tests'):
+                        os.makedirs('tests')
+
+                    config_file = 'class Config:\n\tpass \n class ProdConfig(Config):\n\tpass\
+                    \nclass DevConfig(Config): \n\tDEBUG = True\n\n\
+                    config_options={"production":ProdConfig,"default":DevConfig}'
+
+                    manage_file = "from flask_script import Manager,Server\n\
+                    from app import create_app,db\n\n\
+                    app = create_app('default')\n\n\
+                    manager = Manager(app)\n\n\
+                    manager.add_command('server', Server)\n\n\
+                    if __name__ == '__main__':\n\
+                    \tmanager.run()'\
+                    "
+
+                    with open('config.py','w+') as config:
+                        config.write(config_file)
+                        config.close()
+
+
+                    with open('manage.py','w+') as manage:
+                        manage.write(manage_file)
+                        manage.close()
+
+
+
 
 
 
