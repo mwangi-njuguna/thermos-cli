@@ -115,15 +115,16 @@ def main():
 
                     os.chdir('main')
 
-                    main_init = "from flask import Blueprint\nmain = Blueprint('main',__name__)\n\nfrom . import views,error"
+                    main_init_file = "from flask import Blueprint\nmain = Blueprint('main',__name__)\n\nfrom . import views,error"
                     view_file="from . import main\n\n@main.route('/')\ndef index():\n\treturn '<h1> Hello World </h1>'"
+                    error_file="from flask import render_template\nfrom . import main\n\n@main.app_errorhandler(404)\ndef for_Ow_four(error):\n\t'''\n\tFunction to render the 404 error page\n\t'''\n\treturn render_template('fourOwfour.html'),404"
 
                     blueprint_files = ['__init__.py' ,'views.py' ,'error.py']
 
                     for blueprint_file in blueprint_files:
                         if blueprint_file == '__init__.py':
                             with open(blueprint_file,'w+') as m_init:
-                                m_init.write(main_init)
+                                m_init.write(main_init_file)
                                 m_init.close()
 
                         elif blueprint_file == 'views.py':
@@ -132,11 +133,18 @@ def main():
                                 vw.close()
 
                         else:
-                            with open(blueprint_file,'a'):
-                                os.utime(blueprint_file,None)
+                            with open(blueprint_file,'w+') as er:
+                                er.write(error_file)
+                                er.close()
 
 
-                        print(os.getcwd())
+                    os.chdir('..')
+                    os.chdir('..')
+
+                    with open('tests/__init__.py','a') as test_init:
+                        test_init.close()
+
+                    print(os.getcwd())
 
 
 
