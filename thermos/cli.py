@@ -59,11 +59,13 @@ def main():
                     os.system("touch .gitignore")
                     os.system("touch README.md")
 
-
-
                     with open('.gitignore','w+') as gitignore:
-                        gitignore.write('virtual/ \n *.pyc \nstart.sh')
+                        gitignore.write('virtual/ \n *.pyc \n start.sh')
                         gitignore.close()
+
+                    os.makedirs('tests')
+
+
 
                     print(os.getcwd())
                     # else:
