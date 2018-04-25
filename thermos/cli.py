@@ -30,7 +30,7 @@ def main():
     """The main CLI entry-point."""
 
     import thermos.commands
-    import os
+    import os,pip
 
     options = docopt(__doc__, version=VERSION)
 
@@ -149,6 +149,13 @@ def main():
                         start.close()
 
                     os.system('chmod a+x start.sh')
+                    dependencies = ['flask','flask-script', 'flask-bootstrap','gunicorn','flask-wtf','flask-sqlalchemy']
+
+                    for dependency in dependencies:
+                        pip.main(['install',dependency])
+
+                    os.system('pip freeze > requirements.txt')
+
 
                     with open('Procfile','w+') as proc:
                         proc.write('web: gunicorn manage:app')
@@ -157,23 +164,3 @@ def main():
 
 
                     print(os.getcwd())
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    # else:
-                    #     print("enter")
-                # if not os.path.exists(app_name):
-                #     path = os.makedirs(app_name)
-                #     if os.chdir(os.path.dirname(os.getcwd())):
-                #         print(os.chdir(app_name))
