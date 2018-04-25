@@ -2,7 +2,8 @@
 thermos
 
 Usage:
-  thermos create <appname>
+  thermos create app <appname>
+  thermos create
   thermos -h | --help
   thermos -v | --version
 
@@ -22,13 +23,14 @@ from docopt import docopt
 
 from . import __version__ as VERSION
 
-import os
+import subprocess
 
 
 def main():
     """The main CLI entry-point."""
 
     import thermos.commands
+    import os
 
     options = docopt(__doc__, version=VERSION)
 
@@ -41,7 +43,32 @@ def main():
     #         command.run()
 
     if options['create']:
+        if options['app']:
+            app_name = options['<appname>']
+            if app_name:
+                if not os.path.exists(app_name):
+                    path = os.makedirs(app_name)
+                else:
+                    BASE_DIR = os.path.join( os.path.dirname(os.path.dirname( __file__ )))
+                    print(BASE_DIR)
+                    # if os.chdir(BASE_DIR+"/"+app_name):
+                    # subprocess.Popen("git init")
 
-        app_name = options['<appname>']
-        if app_name:
-            
+                    os.chdir(BASE_DIR+"/"+app_name)
+                    os.system('git init')
+                    os.system("touch .gitignore")
+                    os.system("touch README.md")
+
+
+
+                    with open('.gitignore','w+') as gitignore:
+                        gitignore.write('virtual/ \n *.pyc \nstart.sh')
+                        gitignore.close()
+
+                    print(os.getcwd())
+                    # else:
+                    #     print("enter")
+                # if not os.path.exists(app_name):
+                #     path = os.makedirs(app_name)
+                #     if os.chdir(os.path.dirname(os.getcwd())):
+                #         print(os.chdir(app_name))
