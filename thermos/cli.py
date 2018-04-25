@@ -144,6 +144,14 @@ def main():
                     with open('tests/__init__.py','a') as test_init:
                         test_init.close()
 
+                    with open('start.sh','w+') as start:
+                        start.write('python3.6 manage.py server')
+                        start.close()
+
+                    os.system('chmod a+x start.sh')
+
+
+
                     print(os.getcwd())
 
 
