@@ -100,6 +100,31 @@ def main():
                         if not os.path.exists(folder):
                             os.makedirs(folder)
 
+                    init_file =  "from flask import Flask\n\
+                    from config import config_options\n\
+                    from flask_bootstrap import Bootstrap\n\
+                    from flask_sqlalchemy import SQLAlchemy\n\n\n\
+                    bootstrap = Bootstrap()\n\
+                    db = SQLAlchemy()\n\
+                    def create_app(config_state):\n\
+                    \tapp = Flask(__name__)\n\
+                    \tapp.config.from_object(config_options[config_state])\n\n\n\
+                    \tbootstrap.init_app(app)\
+                    \tdb.init_app(app)\
+                    \tfrom .main import main as main_blueprint\
+                    \tapp.register_blueprint(main_blueprint)\
+                    \treturn app\
+                    "
+
+                    with open('__init__.py','w+') as init:
+                        init.write(init_file)
+                        init.close()
+
+                    with open('models.py','w+') as models:
+                        models.write("'''models'''")
+                        models.close()
+
+
 
 
 
