@@ -10,5 +10,5 @@ class Create(Base):
     """Make base application folder structure"""
 
     def run(self):
-        print("hello there")
-        print('You supplied the following options:', dumps(self.options, indent=2, sort_keys=True))
+        print("test")
+        #print('You supplied the following options:', dumps(self.options, indent=2, sort_keys=True))
