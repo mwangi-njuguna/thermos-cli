@@ -149,7 +149,21 @@ def main():
                         start.close()
 
                     os.system('chmod a+x start.sh')
+
+                    from platform  import python_version
+
+                    version= str(python_version())[:3]
+
+                    virtual="python%s -m venv virtual"%(version)
+
+                    print(virtual)
+
+                    os.system(virtual)
+
+                    os.system('. virtual/bin/activate')
+
                     dependencies = ['flask','flask-script', 'flask-bootstrap','gunicorn','flask-wtf','flask-sqlalchemy']
+
 
                     for dependency in dependencies:
                         pip.main(['install',dependency])
@@ -161,6 +175,4 @@ def main():
                         proc.write('web: gunicorn manage:app')
                         proc.close()
 
-
-
-                    print(os.getcwd())
+                    # print(os.getcwd())
