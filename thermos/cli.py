@@ -94,7 +94,7 @@ def main():
 
                     os.chdir('app')
 
-                    folders = ['static','templates','static/css','static/css','static/images']
+                    folders = ['static','templates','static/css','static/js','static/images']
 
                     for folder in folders:
                         if not os.path.exists(folder):
@@ -113,6 +113,30 @@ def main():
                     if not os.path.exists('main'):
                         os.makedirs('main')
 
+                    os.chdir('main')
+
+                    main_init = "from flask import Blueprint\nmain = Blueprint('main',__name__)\n\nfrom . import views,error"
+                    view_file="from . import main\n\n@main.route('/')\ndef index():\n\treturn '<h1> Hello World </h1>'"
+
+                    blueprint_files = ['__init__.py' ,'views.py' ,'error.py']
+
+                    for blueprint_file in blueprint_files:
+                        if blueprint_file == '__init__.py':
+                            with open(blueprint_file,'w+') as m_init:
+                                m_init.write(main_init)
+                                m_init.close()
+
+                        elif blueprint_file == 'views.py':
+                            with open(blueprint_file,'w+') as vw:
+                                vw.write(view_file)
+                                vw.close()
+
+                        else:
+                            with open(blueprint_file,'a'):
+                                os.utime(blueprint_file,None)
+
+
+                        print(os.getcwd())
 
 
 
@@ -120,7 +144,13 @@ def main():
 
 
 
-                    print(os.getcwd())
+
+
+
+
+
+
+
                     # else:
                     #     print("enter")
                 # if not os.path.exists(app_name):
