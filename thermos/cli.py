@@ -150,6 +150,10 @@ def main():
 
                     os.system('chmod a+x start.sh')
 
+                    with open('Procfile','w+') as proc:
+                        proc.write('web: gunicorn manage:app')
+                        proc.close()
+
 
 
                     print(os.getcwd())
