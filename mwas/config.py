@@ -1,8 +1,8 @@
 class Config:
 	pass 
  class ProdConfig(Config):
-	pass                    
+	pass        
 class DevConfig(Config): 
 	DEBUG = True
 
-                    config_options={"production":ProdConfig,"default":DevConfig}
+        config_options={"production":ProdConfig,"default":DevConfig}

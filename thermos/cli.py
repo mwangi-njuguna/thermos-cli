@@ -42,137 +42,136 @@ def main():
     #         command = command(options)
     #         command.run()
 
-    if options['create']:
-        if options['app']:
-            app_name = options['<appname>']
-            if app_name:
-                if not os.path.exists(app_name):
-                    path = os.makedirs(app_name)
-                else:
-                    BASE_DIR = os.path.join( os.path.dirname(os.path.dirname( __file__ )))
-                    # print(BASE_DIR)
-                    # if os.chdir(BASE_DIR+"/"+app_name):
-                    # subprocess.Popen("git init")
+    if options['create'] and options['app'] and options['<appname>']:
+        app_name = options['<appname>']
+        # if app_name:
+        #     if not os.path.exists(app_name):
+        #         path = os.makedirs(app_name)
+        #         print(path)
+        #     else:
+        # print(path)
 
-                    os.chdir(BASE_DIR+"/"+app_name)
-                    os.system('git init')
-                    os.system("touch .gitignore")
-                    os.system("touch README.md")
+        BASE_DIR = os.getcwd()
 
-                    with open('.gitignore','w+') as gitignore:
-                        gitignore.write('virtual/ \n *.pyc \n start.sh')
-                        gitignore.close()
+        os.chdir(BASE_DIR+"/"+app_name)
 
-                    if not os.path.exists('tests'):
-                        os.makedirs('tests')
+        os.system('git init')
+        os.system("touch .gitignore")
+        os.system("touch README.md")
 
-                    config_file = 'class Config:\n\tpass \n class ProdConfig(Config):\n\tpass\
-                    \nclass DevConfig(Config): \n\tDEBUG = True\n\n\
-                    config_options={"production":ProdConfig,"default":DevConfig}'
+        with open('.gitignore','w+') as gitignore:
+            gitignore.write('virtual/ \n *.pyc \n start.sh')
+            gitignore.close()
 
-                    manage_file = "from flask_script import Manager,Server\n\
-                    from app import create_app,db\n\n\
-                    app = create_app('default')\n\n\
-                    manager = Manager(app)\n\n\
-                    manager.add_command('server', Server)\n\n\
-                    if __name__ == '__main__':\n\
-                    \tmanager.run()'\
-                    "
+        if not os.path.exists('tests'):
+            os.makedirs('tests')
 
-                    with open('config.py','w+') as config:
-                        config.write(config_file)
-                        config.close()
+        config_file = 'class Config:\n\tpass \n class ProdConfig(Config):\n\tpass\
+        \nclass DevConfig(Config): \n\tDEBUG = True\n\n\
+        config_options={"production":ProdConfig,"default":DevConfig}'
 
+        manage_file = "from flask_script import Manager,Server\n\
+        from app import create_app,db\n\n\
+        app = create_app('default')\n\n\
+        manager = Manager(app)\n\n\
+        manager.add_command('server', Server)\n\n\
+        if __name__ == '__main__':\n\
+        \tmanager.run()'\
+        "
 
-                    with open('manage.py','w+') as manage:
-                        manage.write(manage_file)
-                        manage.close()
+        with open('config.py','w+') as config:
+            config.write(config_file)
+            config.close()
 
 
-                    if not os.path.exists('app'):
-                        os.makedirs('app')
-
-                    os.chdir('app')
-
-                    folders = ['static','templates','static/css','static/js','static/images']
-
-                    for folder in folders:
-                        if not os.path.exists(folder):
-                            os.makedirs(folder)
-
-                    init_file =  "from flask import Flask\nfrom config import config_options\nfrom flask_bootstrap import Bootstrap\nfrom flask_sqlalchemy import SQLAlchemy\n\n\nbootstrap = Bootstrap()\ndb = SQLAlchemy()\ndef create_app(config_state):\n\tapp = Flask(__name__)\n\tapp.config.from_object(config_options[config_state])\n\n\n\tbootstrap.init_app(app)\n\tdb.init_app(app)\n\tfrom .main import main as main_blueprint\n\tapp.register_blueprint(main_blueprint)\n\treturn app"
-
-                    with open('__init__.py','w+') as init:
-                        init.write(init_file)
-                        init.close()
-
-                    with open('models.py','w+') as models:
-                        models.write("#models")
-                        models.close()
-
-                    if not os.path.exists('main'):
-                        os.makedirs('main')
-
-                    os.chdir('main')
-
-                    main_init_file = "from flask import Blueprint\nmain = Blueprint('main',__name__)\n\nfrom . import views,error"
-                    view_file="from . import main\n\n@main.route('/')\ndef index():\n\treturn '<h1> Hello World </h1>'"
-                    error_file="from flask import render_template\nfrom . import main\n\n@main.app_errorhandler(404)\ndef for_Ow_four(error):\n\t'''\n\tFunction to render the 404 error page\n\t'''\n\treturn render_template('fourOwfour.html'),404"
-
-                    blueprint_files = ['__init__.py' ,'views.py' ,'error.py']
-
-                    for blueprint_file in blueprint_files:
-                        if blueprint_file == '__init__.py':
-                            with open(blueprint_file,'w+') as m_init:
-                                m_init.write(main_init_file)
-                                m_init.close()
-
-                        elif blueprint_file == 'views.py':
-                            with open(blueprint_file,'w+') as vw:
-                                vw.write(view_file)
-                                vw.close()
-
-                        else:
-                            with open(blueprint_file,'w+') as er:
-                                er.write(error_file)
-                                er.close()
+        with open('manage.py','w+') as manage:
+            manage.write(manage_file)
+            manage.close()
 
 
-                    os.chdir('..')
-                    os.chdir('..')
+        if not os.path.exists('app'):
+            os.makedirs('app')
 
-                    with open('tests/__init__.py','a') as test_init:
-                        test_init.close()
+        os.chdir('app')
 
-                    with open('start.sh','w+') as start:
-                        start.write('python3.6 manage.py server')
-                        start.close()
+        folders = ['static','templates','static/css','static/js','static/images']
 
-                    os.system('chmod a+x start.sh')
+        for folder in folders:
+            if not os.path.exists(folder):
+                os.makedirs(folder)
 
-                    from platform  import python_version
+        init_file =  "from flask import Flask\nfrom config import config_options\nfrom flask_bootstrap import Bootstrap\nfrom flask_sqlalchemy import SQLAlchemy\n\n\nbootstrap = Bootstrap()\ndb = SQLAlchemy()\ndef create_app(config_state):\n\tapp = Flask(__name__)\n\tapp.config.from_object(config_options[config_state])\n\n\n\tbootstrap.init_app(app)\n\tdb.init_app(app)\n\tfrom .main import main as main_blueprint\n\tapp.register_blueprint(main_blueprint)\n\treturn app"
 
-                    version= str(python_version())[:3]
+        with open('__init__.py','w+') as init:
+            init.write(init_file)
+            init.close()
 
-                    virtual="python%s -m venv virtual"%(version)
+        with open('models.py','w+') as models:
+            models.write("#models")
+            models.close()
 
-                    print(virtual)
+        if not os.path.exists('main'):
+            os.makedirs('main')
 
-                    os.system(virtual)
+        os.chdir('main')
 
-                    os.system('. virtual/bin/activate')
+        main_init_file = "from flask import Blueprint\nmain = Blueprint('main',__name__)\n\nfrom . import views,error"
+        view_file="from . import main\n\n@main.route('/')\ndef index():\n\treturn '<h1> Hello World </h1>'"
+        error_file="from flask import render_template\nfrom . import main\n\n@main.app_errorhandler(404)\ndef for_Ow_four(error):\n\t'''\n\tFunction to render the 404 error page\n\t'''\n\treturn render_template('fourOwfour.html'),404"
 
-                    dependencies = ['flask','flask-script', 'flask-bootstrap','gunicorn','flask-wtf','flask-sqlalchemy']
+        blueprint_files = ['__init__.py' ,'views.py' ,'error.py']
+
+        for blueprint_file in blueprint_files:
+            if blueprint_file == '__init__.py':
+                with open(blueprint_file,'w+') as m_init:
+                    m_init.write(main_init_file)
+                    m_init.close()
+
+            elif blueprint_file == 'views.py':
+                with open(blueprint_file,'w+') as vw:
+                    vw.write(view_file)
+                    vw.close()
+
+            else:
+                with open(blueprint_file,'w+') as er:
+                    er.write(error_file)
+                    er.close()
 
 
-                    for dependency in dependencies:
-                        pip.main(['install',dependency])
+        os.chdir('..')
+        os.chdir('..')
 
-                    os.system('pip freeze > requirements.txt')
+        with open('tests/__init__.py','a') as test_init:
+            test_init.close()
+
+        with open('start.sh','w+') as start:
+            start.write('python3.6 manage.py server')
+            start.close()
+
+        os.system('chmod a+x start.sh')
+
+        from platform  import python_version
+
+        version= str(python_version())[:3]
+
+        virtual="python%s -m venv virtual"%(version)
 
 
-                    with open('Procfile','w+') as proc:
-                        proc.write('web: gunicorn manage:app')
-                        proc.close()
+        os.system(virtual)
 
-                    # print(os.getcwd())
+        os.system('. virtual/bin/activate')
+
+        dependencies = ['flask','flask-script', 'flask-bootstrap','gunicorn','flask-wtf','flask-sqlalchemy']
+
+
+        for dependency in dependencies:
+            pip.main(['install',dependency])
+
+        os.system('pip freeze > requirements.txt')
+
+
+        with open('Procfile','w+') as proc:
+            proc.write('web: gunicorn manage:app')
+            proc.close()
+
+                # print(os.getcwd())
