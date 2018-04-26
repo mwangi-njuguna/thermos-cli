@@ -15,8 +15,8 @@ Both the CLI and generated project have dependencies that require python3.6.
 
 * [Installation](#installation)
 * [Usage](#usage)
-* [Generating a New Flask Application](#Generating a New Flask Application)
-* [Generating Templates and Blueprints](#Generating Templates and Blueprints)
+* [Generating a New Flask Application](#generating a New Flask Application)
+* [Generating Templates and Blueprints](#generating Templates and Blueprints)
 * [Documentation](#documentation)
 * [License](#license)
 
