@@ -101,4 +101,210 @@ def main():
 
                 else:
 
-                   
+                    BASE_DIR = os.path.join( os.path.dirname(os.path.dirname( __file__ )))
+
+                    # print(BASE_DIR)
+
+                    # if os.chdir(BASE_DIR+"/"+app_name):
+
+                    # subprocess.Popen("git init")
+
+
+
+
+
+                    template_file = "from flask_script import Manager,Server\n\
+
+                    from app import create_app,db\n\n\
+
+                    app = create_app('default')\n\n\
+
+                    manager = Manager(app)\n\n\
+
+                    manager.add_command('server', Server)\n\n\
+
+                    if __name__ == '__main__':\n\
+
+                    \tmanager.run()'\
+
+                    "
+
+
+                    with open('templatename','w+') as template:
+
+                        manage.write(template_file)
+
+                        template.close()
+
+                       if not os.path.exists('template'):
+
+                        os.makedirs('template')
+
+
+
+                    os.chdir('template')
+
+
+
+                    folders = ['static','templates','static/css','static/js','static/images']
+
+
+
+                    for folder in folders:
+
+                        if not os.path.exists(folder):
+
+                            os.makedirs(folder)
+
+
+
+                    init_file =  "from flask import Flask\nfrom config import config_options\nfrom flask_bootstrap import Bootstrap\nfrom flask_sqlalchemy import SQLAlchemy\n\n\nbootstrap = Bootstrap()\ndb = SQLAlchemy()\ndef create_app(config_state):\n\tapp = Flask(__name__)\n\tapp.config.from_object(config_options[config_state])\n\n\n\tbootstrap.init_app(app)\n\tdb.init_app(app)\n\tfrom .main import main as main_blueprint\n\tapp.register_blueprint(main_blueprint)\n\treturn app"
+
+
+                    with open('models.py','w+') as models:
+
+                        models.write("#models")
+
+                        models.close()
+
+
+
+                    if not os.path.exists('main'):
+
+                        os.makedirs('main')
+
+
+
+                    os.chdir('main')
+
+
+
+                    main_init_file = "from flask import Blueprint\nmain = Blueprint('main',__name__)\n\nfrom . import views,error"
+
+                    view_file="from . import main\n\n@main.route('/')\ndef index():\n\treturn '<h1> Hello World </h1>'"
+
+                    error_file="from flask import render_template\nfrom . import main\n\n@main.app_errorhandler(404)\ndef for_Ow_four(error):\n\t'''\n\tFunction to render the 404 error page\n\t'''\n\treturn render_template('fourOwfour.html'),404"
+
+
+
+                    blueprint_files = ['__init__.py' ,'views.py' ,'error.py']
+
+
+
+                    for blueprint_file in blueprint_files:
+
+                        if blueprint_file == '__init__.py':
+
+                            with open(blueprint_file,'w+') as m_init:
+
+                                m_init.write(main_init_file)
+
+                                m_init.close()
+
+
+
+                        elif blueprint_file == 'views.py':
+
+                            with open(blueprint_file,'w+') as vw:
+
+                                vw.write(view_file)
+
+                                vw.close()
+
+
+
+                        else:
+
+                            with open(blueprint_file,'w+') as er:
+
+                                er.write(error_file)
+
+                                er.close()
+
+
+
+
+
+                    os.chdir('..')
+
+                    os.chdir('..')
+
+
+
+                    with open('tests/__init__.py','a') as test_init:
+
+                        test_init.close()
+
+
+
+                    with open('start.sh','w+') as start:
+
+                        start.write('python3.6 manage.py server')
+
+                        start.close()
+
+
+
+                    os.system('chmod a+x start.sh')
+
+
+
+                    from platform  import python_version
+
+
+
+                    version= str(python_version())[:3]
+
+
+
+                    virtual="python%s -m venv virtual"%(version)
+
+
+
+                    print(virtual)
+
+
+
+                    os.system(virtual)
+
+
+
+                    os.system('. virtual/bin/activate')
+
+
+
+                    dependencies = ['flask','flask-script', 'flask-bootstrap','gunicorn','flask-wtf','flask-sqlalchemy']
+
+
+
+
+
+                    for dependency in dependencies:
+
+                        pip.main(['install',dependency])
+
+
+
+                    os.system('pip freeze > requirements.txt')
+
+
+
+
+
+                    with open('Procfile','w+') as proc:
+
+                        proc.write('web: gunicorn manage:app')
+
+                        proc.close()
+
+
+
+                    # print(os.getcwd())  
+
+
+
+
+
+
+                    
+
