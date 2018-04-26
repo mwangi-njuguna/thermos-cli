@@ -241,6 +241,12 @@ def main():
                     err.close()
         cprint("\nGOTCHA!\tCREATED Blueprint\n","green")
 
+    def create_template():
+        template_name = options['<templatename>']
+        if not os.path.exists(template_name):
+            with open(template_name+'.html','a') as template:
+                template.close()
+
     def add_blueprint():
         if check_app_is_flask():
             os.chdir('app')
