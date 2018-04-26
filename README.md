@@ -49,9 +49,11 @@ You can use the `thermos create app APPNAME` to create a new application structu
 thermos create template TEMPLATE-NAME
 
 # Navigate into the new app
+
 cd APP-NAME
 
-# if in the directory src/app/nameofapp/ and you run
+# if in the directory src/app/app-name/ run
+
 thermos create blueprint BLUEPRINT-NAME
 
 ```
