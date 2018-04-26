@@ -4,6 +4,7 @@ thermos
 Usage:
   thermos create app <appname>
   thermos create blueprint <blueprintname>
+  thermos create template <templatename>
   thermos -h | --help
   thermos -v | --version
 
@@ -21,7 +22,7 @@ from inspect import getmembers, isclass
 
 from docopt import docopt
 
-import subprocess,sys
+import sys
 
 from . import __version__ as VERSION
 
@@ -238,6 +239,7 @@ def main():
                     err.write(error_file)
 
                     err.close()
+        cprint("\nGOTCHA!\tCREATED Blueprint\n","green")
 
     def add_blueprint():
         if check_app_is_flask():
@@ -245,6 +247,13 @@ def main():
             create_blueprint()
 
 
-    if options['create'] and options['app'] and options['<appname>']:
-        if not check_app_is_flask():
-            create_structure()
+    if options['create']:
+        if options['app'] and options['<appname>']:
+            if not check_app_is_flask():
+                create_structure()
+
+        if options['blueprint'] and options['<blueprintname>']:
+            add_blueprint()
+
+        if options['template'] and options['<templatename>']:
+            add_template()
