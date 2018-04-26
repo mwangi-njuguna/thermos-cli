@@ -199,6 +199,50 @@ def main():
         else:
             return False
 
+    def create_blueprint():
+        blueprint_name = options['<blueprintname>']
+        if not os.path.exists(blueprint_name):
+            os.makedirs(blueprint_name)
+
+        os.chdir(blueprint_name)
+
+        blueprint_name_init_file = "from flask import Blueprint\n{} = Blueprint('{}',__name__)\n\nfrom . import views,error".format(blueprint_name,blueprint_name)
+
+        view_file="from . import {}\n\n@{}.route('/')\ndef index():\n\treturn '<h1> Hello world </h1>'".format(blueprint_name,blueprint_name)
+
+        error_file="from flask import render_template\nfrom . import {}\n\n@{}.app_errorhandler(404)\ndef four_Ow_four(error):\n\t'''\n\tFunction to render the 404 error page\n\t'''\n\treturn render_template('fourOwfour.html'),404".format(blueprint_name,blueprint_name)
+
+        blueprint_files = ['__init__.py', 'views.py', 'error.py']
+
+
+        for blueprint_file in blueprint_files:
+            if blueprint_file == '__init__.py':
+                with open(blueprint_file,'w+') as b_init:
+
+                    b_init.write(blueprint_name_init_file)
+
+                    b_init.close()
+
+            elif blueprint_file == 'views.py':
+
+                with open(blueprint_file,'w+') as v:
+
+                    v.write(view_file)
+
+                    v.close()
+
+            else:
+
+                with open(blueprint_file,'w+') as err:
+
+                    err.write(error_file)
+
+                    err.close()
+
+    
+
+
+
     if options['create'] and options['app'] and options['<appname>']:
         if not check_app_is_flask():
             create_structure()
