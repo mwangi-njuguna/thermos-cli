@@ -9,6 +9,7 @@ Usage:
   thermos -v | --version
 
 Options:
+  create                         generate new app,blueprint or template      
   -h --help                         Show this screen for available options.
   -v --version                         Show the version.
 Examples:
@@ -42,14 +43,6 @@ def main():
     import os,pip
 
     options = docopt(__doc__, version=VERSION)
-
-    # for (k, v) in options.items():
-    #     if hasattr(thermos.commands, k) and v:
-    #         module = getattr(thermos.commands, k)
-    #         thermos.commands = getmembers(module, isclass)
-    #         command = [command[1] for command in thermos.commands if command[0] != 'Base'][0]
-    #         command = command(options)
-    #         command.run()
 
     def create_structure():
         app_name = options['<appname>']
