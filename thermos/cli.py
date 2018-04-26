@@ -3,7 +3,7 @@ thermos
 
 Usage:
   thermos create app <appname>
-  thermos create
+  thermos create blueprint | -b <blueprintname>
   thermos -h | --help
   thermos -v | --version
 
@@ -44,16 +44,11 @@ def main():
 
     if options['create'] and options['app'] and options['<appname>']:
         app_name = options['<appname>']
-        # if app_name:
-        #     if not os.path.exists(app_name):
-        #         path = os.makedirs(app_name)
-        #         print(path)
-        #     else:
-        # print(path)
 
-        BASE_DIR = os.getcwd()
+        if not os.path.exists(app_name):
+            os.makedirs(app_name)
 
-        os.chdir(BASE_DIR+"/"+app_name)
+        os.chdir(os.getcwd()+"/"+app_name)
 
         os.system('git init')
         os.system("touch .gitignore")
@@ -96,9 +91,23 @@ def main():
 
         folders = ['static','templates','static/css','static/js','static/images']
 
+        base_html = "{% extends  'bootstrap/base.html' %}\n<!doctype html>\n<html><head>{% block head %}\
+            <link rel='stylesheet' href=\"{{ url_for('static', filename='style.css') }}\">\
+            <title>{% block title %}{% endblock %} - My Webpage</title>\
+            {% endblock %} </head> <body> <div id='content'>{% block content %}{% endblock %}</div><div id='footer'>\
+            {% block footer %}\
+            &copy; Copyright 2010 by <a href='http://domain.invalid/'>you</a>.\
+            {% endblock %} </div> </body></html>"
+
         for folder in folders:
             if not os.path.exists(folder):
                 os.makedirs(folder)
+
+            if folder=='templates':
+                with open('templates/base.html','w+') as base_tem:
+                    base_tem.write(base_html)
+                    base_tem.close()
+
 
         init_file =  "from flask import Flask\nfrom config import config_options\nfrom flask_bootstrap import Bootstrap\nfrom flask_sqlalchemy import SQLAlchemy\n\n\nbootstrap = Bootstrap()\ndb = SQLAlchemy()\ndef create_app(config_state):\n\tapp = Flask(__name__)\n\tapp.config.from_object(config_options[config_state])\n\n\n\tbootstrap.init_app(app)\n\tdb.init_app(app)\n\tfrom .main import main as main_blueprint\n\tapp.register_blueprint(main_blueprint)\n\treturn app"
 
@@ -173,5 +182,3 @@ def main():
         with open('Procfile','w+') as proc:
             proc.write('web: gunicorn manage:app')
             proc.close()
-
-                # print(os.getcwd())
