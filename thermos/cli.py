@@ -117,5 +117,17 @@ def main():
                     os.system("touch .gitignore")
 
                     os.system("touch README.md")
+
+                     with open('.gitignore','w+') as gitignore:
+
+                        gitignore.write('virtual/ \n *.pyc \n start.sh')
+
+                        gitignore.close()
+
+
+
+                    if not os.path.exists('tests'):
+
+                        os.makedirs('tests')
                     
 
