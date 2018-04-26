@@ -1,6 +1,8 @@
-## Note
+## Thermos CLI
 
-A flask command line interface built on python 
+A flask command line interface built on python. 
+
+## Note
 
 If you wish to collaborate,visit https://github.com/mwangi-njuguna/thermos-cli.
 
@@ -13,10 +15,8 @@ Both the CLI and generated project have dependencies that require python3.6.
 
 * [Installation](#installation)
 * [Usage](#usage)
-* [Generating a New Project](#generating-and-serving-an-angular-project-via-a-development-server)
-* [Generating Components, Directives, Pipes and Services](#generating-components-directives-pipes-and-services)
-* [Updating Angular CLI](#updating-angular-cli)
-* [Development Hints for working on Angular CLI](#development-hints-for-working-on-angular-cli)
+* [Generating a New Flask Application](#Generating a new flask project)
+* [Generating Templates and Blueprints](#Generating templates and blueprints)
 * [Documentation](#documentation)
 * [License](#license)
 
@@ -35,7 +35,7 @@ pip install -e .
 thermos --help
 ```
 
-### Generating a flask project 
+### Generating a Flask Project 
 
 ```bash
 thermos create PROJECT-NAME
@@ -45,7 +45,7 @@ Navigate to `http://localhost:4200/`. The app will automatically reload if you c
 You can configure the default HTTP host and port used by the development server with two command-line options :
 
 
-### Generating templates and blueprints
+### Generating Templates and Blueprints
 
 You can use the `thermos create app APPNAME` to create a new application structure:
 
@@ -72,7 +72,6 @@ If you are updating to 1.0 from a beta or RC version, check out our [1.0 Update 
 You can find more details about changes between versions in [the Releases tab on GitHub](https://github.com/angular/angular-cli/releases).
 
 
-## Development Hints for working on Angular CLI
 
 ### Working with master
 
