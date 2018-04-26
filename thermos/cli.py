@@ -5,8 +5,9 @@ thermos
 
 
 Usage:
+  
+  thermos create template <templatename>
 
-  thermos create app <appname>
 
   thermos create
 
@@ -88,94 +89,16 @@ def main():
 
     if options['create']:
 
-        if options['app']:
+        if options['template']:
 
-            app_name = options['<appname>']
+            template_name = options['<templatename>']
 
-            if app_name:
+            if template_name:
 
-                if not os.path.exists(app_name):
+                if not os.path.exists(template_name):
 
-                    path = os.makedirs(app_name)
+                    path = os.makedirs(template_name)
 
                 else:
 
-                    BASE_DIR = os.path.join( os.path.dirname(os.path.dirname( __file__ )))
-
-                    # print(BASE_DIR)
-
-                    # if os.chdir(BASE_DIR+"/"+app_name):
-
-                    # subprocess.Popen("git init")
-
-
-
-                    os.chdir(BASE_DIR+"/"+app_name)
-
-                    os.system('git init')
-
-                    os.system("touch .gitignore")
-
-                    os.system("touch README.md")
-
-                     with open('.gitignore','w+') as gitignore:
-
-                        gitignore.write('virtual/ \n *.pyc \n start.sh')
-
-                        gitignore.close()
-
-
-
-                    if not os.path.exists('tests'):
-
-                        os.makedirs('tests')
-
-                        config_file = 'class Config:\n\tpass \n class ProdConfig(Config):\n\tpass\
-
-                    \nclass DevConfig(Config): \n\tDEBUG = True\n\n\
-
-                    config_options={"production":ProdConfig,"default":DevConfig}'
-
-
-
-                    manage_file = "from flask_script import Manager,Server\n\
-
-                    from app import create_app,db\n\n\
-
-                    app = create_app('default')\n\n\
-
-                    manager = Manager(app)\n\n\
-
-                    manager.add_command('server', Server)\n\n\
-
-                    if __name__ == '__main__':\n\
-
-                    \tmanager.run()'\
-
-                    "
-
-
-
-                    with open('config.py','w+') as config:
-
-                        config.write(config_file)
-
-                        config.close()
-
-
-
-
-
-                    with open('manage.py','w+') as manage:
-
-                        manage.write(manage_file)
-
-                        manage.close()
-
-
-
-
-
-
-                    
-
+                   
