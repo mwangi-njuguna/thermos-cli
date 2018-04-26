@@ -58,7 +58,7 @@ setup(
     keywords = 'cli',
     packages=['thermos'],
     #package_dir = {'': '/lib'},
-    install_requires = ['docopt'],
+    install_requires = ['docopt','colorama','termcolor'],
     extras_require = {
         'test': ['coverage', 'pytest', 'pytest-cov'],
     },

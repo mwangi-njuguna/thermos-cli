@@ -3,7 +3,7 @@ thermos
 
 Usage:
   thermos create app <appname>
-  thermos create blueprint | -b <blueprintname>
+  thermos create blueprint <blueprintname>
   thermos -h | --help
   thermos -v | --version
 
@@ -21,9 +21,15 @@ from inspect import getmembers, isclass
 
 from docopt import docopt
 
+import subprocess,sys
+
 from . import __version__ as VERSION
 
-import subprocess
+from colorama import init
+init(strip=not sys.stdout.isatty())
+
+from termcolor import cprint
+
 
 
 def main():
@@ -42,7 +48,7 @@ def main():
     #         command = command(options)
     #         command.run()
 
-    if options['create'] and options['app'] and options['<appname>']:
+    def create_structure():
         app_name = options['<appname>']
 
         if not os.path.exists(app_name):
@@ -182,3 +188,17 @@ def main():
         with open('Procfile','w+') as proc:
             proc.write('web: gunicorn manage:app')
             proc.close()
+
+        cprint("\nCREATED APPLICATION FOLDER STRUCTURE\n HAPPY flasking :)\n","green")
+
+    def check_app_is_flask():
+        existing_file_folders = ['app','virtual','config.py','manage.py','Procfile','README.md','requirements.txt','start.sh']
+
+        if all(os.path.exists(fl) for fl in existing_file_folders):
+            return True
+        else:
+            return False
+
+    if options['create'] and options['app'] and options['<appname>']:
+        if not check_app_is_flask():
+            create_structure()

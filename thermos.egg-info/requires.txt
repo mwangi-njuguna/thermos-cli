@@ -1,4 +1,6 @@
 docopt
+colorama
+termcolor
 
 [test]
 coverage
