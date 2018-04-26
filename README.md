@@ -15,8 +15,8 @@ Both the CLI and generated project have dependencies that require python3.6.
 
 * [Installation](#installation)
 * [Usage](#usage)
-* [Generating a New Flask Application](#Generating a new flask project)
-* [Generating Templates and Blueprints](#Generating templates and blueprints)
+* [Generating a New Flask Application](#Generating a New Flask Application)
+* [Generating Templates and Blueprints](#Generating Templates and Blueprints)
 * [Documentation](#documentation)
 * [License](#license)
 
@@ -35,7 +35,7 @@ pip install -e .
 thermos --help
 ```
 
-### Generating a Flask Project 
+### Generating a New Flask Application
 
 ```bash
 thermos create PROJECT-NAME
@@ -46,13 +46,13 @@ thermos create PROJECT-NAME
 You can use the `thermos create app APPNAME` to create a new application structure:
 
 ```bash
-thermos create template TEMPLATENAME
+thermos create template TEMPLATE-NAME
 
 # Navigate into the new app
-cd NAMEOFAPP
+cd APP-NAME
 
 # if in the directory src/app/nameofapp/ and you run
-thermos create blueprint BLUEPRINTNAME
+thermos create blueprint BLUEPRINT-NAME
 
 ```
 
