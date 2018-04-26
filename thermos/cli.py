@@ -246,6 +246,12 @@ def main():
             os.chdir('app')
             create_blueprint()
 
+    def add_template():
+        if check_app_is_flask():
+            os.chdir('app')
+            os.chdir('templates')
+            create_template()
+
 
     if options['create']:
         if options['app'] and options['<appname>']:
