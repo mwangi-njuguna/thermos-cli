@@ -239,8 +239,10 @@ def main():
 
                     err.close()
 
-    
-
+    def add_blueprint():
+        if check_app_is_flask():
+            os.chdir('app')
+            create_blueprint()
 
 
     if options['create'] and options['app'] and options['<appname>']:
