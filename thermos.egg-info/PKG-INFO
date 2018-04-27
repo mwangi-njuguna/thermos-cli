@@ -1,17 +1,18 @@
 Metadata-Version: 1.1
 Name: thermos
-Version: 1.0.0
+Version: 1.2.0a1
 Summary: A command line program in Python for creating flask standard application structure, blueprints and templates.
 Home-page: https://github.com/mwangi-njuguna/thermos-cli
 Author: Mwangi Njuguna
 Author-email: mwanginjuguna59@gmail.com
-License: UNLICENSE
+License: MIT
 Description: UNKNOWN
-Keywords: cli
+Keywords: flask,cli
 Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
 Classifier: Intended Audience :: Flask Developers
 Classifier: Topic :: Utilities
-Classifier: License :: Public Domain
+Classifier: License :: OSI Approved :: MIT License
 Classifier: Natural Language :: English
 Classifier: Operating System :: OS Independent
 Classifier: Programming Language :: Python :: 2

@@ -1,6 +1,7 @@
 MANIFEST.in
 README.rst
 setup.cfg
+tests/test_thermos.py
 thermos/__init__.py
 thermos/__main__.py
 thermos/cli.py

@@ -43,9 +43,9 @@ setup(
     license = 'MIT',
     classifiers = [
         'Development Status :: 3 - Alpha',
-        'Intended Audience :: Flask Developers',
+        'Intended Audience :: Developers',
         'Topic :: Utilities',
-        'License :: OSI Approved :: MIT License,
+        'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2',
